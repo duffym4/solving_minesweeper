@@ -32,7 +32,7 @@ def on_draw():
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
-	playerBoard.mouse(x, y, button, pyglet.window.mouse)
+	playerBoard.mouse(x, y, button, pyglet.window.mouse, f)
 
 pyglet.clock.schedule_interval(timer.update, 1)
 pyglet.app.run() 
