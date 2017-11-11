@@ -1,4 +1,3 @@
-
 import random as rand
 class Board(object):
 	"""
@@ -8,14 +7,17 @@ class Board(object):
 	"""
     def __init__(self,nrows,ncols,mines):
     	# Initialize grid
-        grid = [[False]*ncols]*nrows
-        i = 0
-        while (i<mines):
+    	grid = [[False]*ncols]*nrows
+    	for i in range(mines):
         	rowPlacement = rand.randint(0,rows-1)
         	colPlacement = rand.randint(0,cols-1)
-        	if (!grid[rowPlacement][colPlacement]):
-        		grid[rowPlacement][colPlacement] = True
-        		i+=1
+        	placed = False
+        	while (not placed)
+        		if (not grid[rowPlacement][colPlacement]):
+        			grid[rowPlacement][colPlacement] = True
+        			placed = True
+        		else:
+        			colPlacement+=1
 
     def getCell(self, x, y)
     	if grid[y] and grid[y][x]:
