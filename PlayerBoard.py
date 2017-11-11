@@ -12,6 +12,8 @@ class PlayerBoard(object):
 		self.x0 = x0_
 		self.y0 = y0_
 		self.timer=timer
+		self.gameOver = False
+
 		for y in range(0, self.nrows):
 			self.grid.append([])
 			for x in range(0, self.ncols):
@@ -34,6 +36,9 @@ class PlayerBoard(object):
 
 	def mouse(self, x, y, button, mouse):
 
+		if self.gameOver:
+			return
+
 		gridX = int((x-self.x0)/16)
 		gridY = int((y-self.y0)/16)
 
@@ -43,11 +48,13 @@ class PlayerBoard(object):
 		if button == mouse.LEFT:
 			self.activate(gridX, gridY)
 			if self.grid[gridY][gridX].value==9:
+				self.gameOver = True
+				self.grid[gridY][gridX].imageKey = "red_mine"
 				self.timer.stop()
 				for i in range(0,self.nrows):
 					for j in range(0,self.ncols):
-						if self.board.getCell(i,j)==9 and self.grid[i][j].value==-1:
-							self.activate(i,j)
+						if self.board.getCell(j,i)==9 and self.grid[i][j].value==-1:
+							self.activate(j,i)
 									
 			
 		elif button == mouse.RIGHT and self.grid[gridY][gridX].value == -1:

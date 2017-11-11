@@ -18,6 +18,7 @@ print(board.getCell(5, 5))
 
 images = {}
 images['mine'] = pyglet.image.load('images/sprites.png').get_region(x=0, y=16*3+1, width=16, height=16)
+images['red_mine'] = pyglet.image.load('images/sprites.png').get_region(x=2*16, y=16*3+1, width=16, height=16)
 images['flag'] = pyglet.image.load('images/sprites.png').get_region(x=4*16, y=16*3+1, width=16, height=16)
 images['unknown'] = pyglet.image.load('images/sprites.png').get_region(x=3*16, y=16*3+1, width=16, height=16)
 images['blank'] = pyglet.image.load('images/sprites.png').get_region(x=5*16, y=16*3+1, width=16, height=16)
