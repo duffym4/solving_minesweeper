@@ -29,6 +29,5 @@ def on_draw():
 	for i in range(0, 9):
 		images['number-'+str(i)].blit(16*i, 0)
 
-
 pyglet.clock.schedule_interval(timer.update, 1)
 pyglet.app.run() 
