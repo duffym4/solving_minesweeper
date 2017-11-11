@@ -1,4 +1,3 @@
-
 import random as rand
 
 class Board(object):
@@ -7,18 +6,30 @@ class Board(object):
 	grid is a list of board rows, where
 	'True' represents a mine 
 	"""
-	def __init__(self,nrows,ncols,mines):
+
+	def __init__(self,_nrows,_ncols,_mines):
 		# Initialize grid
-		self.grid = [[False]*ncols]*nrows
-		self.nrows = nrows
-		self.ncols = ncols
-		i = 0
-		while (i<mines):
-			rowPlacement = rand.randint(0,nrows-1)
-			colPlacement = rand.randint(0,ncols-1)
-			if (not self.grid[rowPlacement][colPlacement]):
-				self.grid[rowPlacement][colPlacement] = True
-				i+=1
+		self.grid = [[False]*_ncols]*_nrows
+		# Board data
+		self.nrows = _nrows
+		self.ncols = _ncols
+		self.mines = _mines
+
+		# Place the mines
+		for i in range(_mines):
+			rowPlacement = rand.randint(0,_nrows-1)
+			colPlacement = rand.randint(0,_ncols-1)
+			placed = False
+			while (not placed):
+				if (not self.grid[rowPlacement][colPlacement]):
+					self.grid[rowPlacement][colPlacement] = True
+					placed = True
+				else:
+					# if there is already a mine, move it
+					if (colPlacement == _ncols-1):
+						rowPlacement += 1
+						colPlacement = -1
+					colPlacement+=1
 
 	def getCell(self, x, y):
 		if self.grid[y] and self.grid[y][x]:
