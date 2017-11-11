@@ -57,12 +57,3 @@ class Board(object):
 				else:
 					print(0, end="")
 			print()
-			
-	def draw(self):
-		for y in range(0, self.nrows):
-			for x in range(0, self.ncols):
-				if self.grid[y][x]:
-					print(1, end="")
-				else:
-					print(0, end="")
-			print()

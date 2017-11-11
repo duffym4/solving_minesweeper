@@ -6,27 +6,21 @@ class Tile(object):
 
         self.value = -1
         self.imageKey = "blank"
-
-        
-    def x(self):
-        return x
-    def y(self):
-        return self.y
-  
-    def value(self):
-        return value
-    def imageKey(self):
-        return imageKey
-        
         
     def activate(self, value):
-        value = value
+        self.value = value
         
-        if value in range(0,9):
-            imageKey = 'number-' + value 
-        elif value == 9:
-            imageKey = 'bomb'
-        elif value == 10:
-            imageKey = 'flag'
-        elif value == -1:
-            imageKey = 'blank'
+        if self.value in range(0,9):
+            self.imageKey = 'number-' + value 
+        elif self.value == 9:
+            self.imageKey = 'bomb'
+        elif self.value == 10:
+            self.imageKey = 'flag'
+        elif self.value == -1:
+            self.imageKey = 'blank'
+
+    def draw(self, images):
+        images[self.imageKey].blit(self.x, self.y)
+
+
+
