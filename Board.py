@@ -6,6 +6,8 @@ class Board(object):
         
 
     def getCell(self, x, y)
+    	if Grid[y] and Grid[y][x]:
+    		return 9
     	bombs = 0
     	for x0 in range(-1, 2):
     		for y0 in range (-1, 2):
