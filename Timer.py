@@ -16,12 +16,3 @@ class Timer(object):
     def update(self,dt):
         self.time += dt
         self.label.text = str(int(self.time))
-
-@window.event
-def on_draw():
-    window.clear()
-    timer.label.draw()
-    
-timer = Timer()
-pyglet.clock.schedule_interval(timer.update, 1)
-pyglet.app.run() 
