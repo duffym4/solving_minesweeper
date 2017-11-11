@@ -33,9 +33,7 @@ class Tile(object):
             if value == 0:
                 image = pyglet.resource.image('0.png')'''
                 
-        image.blit(0, 0)
-        
-        
+        image.blit(0, 0)        
   
         
 
