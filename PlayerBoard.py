@@ -29,10 +29,10 @@ class PlayerBoard(object):
 						if self.grid[y+y0][x+x0].value == -1:
 							self.activate(x+x0, y+y0)
 
-	def draw(self, images):
+	def draw(self, images, scale):
 		for y in range(0, self.nrows):
 			for x in range(0, self.ncols):
-				self.grid[y][x].draw(self.x0, self.y0, images)
+				self.grid[y][x].draw(self.x0, self.y0, images, scale)
 
 	def mouse(self, x, y, button, mouse):
 

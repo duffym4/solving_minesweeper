@@ -13,10 +13,10 @@ class Timer(object):
             self.time = min(999,self.time+1)
     def stop(self):
         self.running=False
-    def draw(self,images,x,y):
+    def draw(self,images,scale,x,y):
         i=0
         images["timer-"+str(int(self.time%10))].blit(x,y)
         
-        images["timer-"+str(int(self.time/10%10))].blit(x-13,y)
-        images["timer-"+str(int(self.time/100%100))].blit(x-26,y)  
+        images["timer-"+str(int(self.time/10%10))].blit(x-13*scale,y)
+        images["timer-"+str(int(self.time/100%100))].blit(x-26*scale,y)  
             

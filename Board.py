@@ -7,7 +7,7 @@ class Board(object):
 	'True' represents a mine 
 	"""
 
-	def __init__(self,_nrows,_ncols,_mines):
+	def __init__(self,_ncols,_nrows,_mines):
 		# Board data
 		self.nrows = _nrows
 		self.ncols = _ncols
