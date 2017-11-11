@@ -19,6 +19,12 @@ class PlayerBoard(object):
 
 	def activate(self, x, y):
 		self.grid[y][x].activate(self.board.getCell(x,y))
+		if self.grid[y][x].value == 0:
+			for x0 in range(-1, 2):
+				for y0 in range (-1, 2):
+					if (y + y0) in range (0, self.nrows) and (x + x0) in range(0, self.ncols):
+						if self.grid[y+y0][x+x0].value == -1:
+							self.activate(x+x0, y+y0)
 
 	def draw(self, images):
 		for y in range(0, self.nrows):
