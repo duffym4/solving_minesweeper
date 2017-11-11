@@ -1,5 +1,7 @@
-import Board.py
+from Board import *
 
-board = Board(10, 10, 10)
+board = Board(10, 10, 1)
 
-print(board.getCell(5, 5))
+board.printGrid()
+
+print(board.getCell(9, 9))
