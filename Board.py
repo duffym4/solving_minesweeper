@@ -8,18 +8,17 @@ class Board(object):
 	"""
 
 	def __init__(self,_nrows,_ncols,_mines):
-		# Initialize grid
-
 		# Board data
 		self.nrows = _nrows
 		self.ncols = _ncols
 		self.mines = _mines
+		
+		# Initialize grid
 		self.grid = []
 		for y in range(0, self.nrows):
 			self.grid.append([])
 			for x in range(0, self.ncols):
 				self.grid[y].append(False)
-
 
 		# Place the mines
 		for i in range(_mines):
@@ -34,6 +33,8 @@ class Board(object):
 					# if there is already a mine, move it
 					if (colPlacement == _ncols-1):
 						rowPlacement += 1
+						if (rowPlacement == _nrows-1):
+							rowPlacement = 0
 						colPlacement = -1
 					colPlacement+=1
 

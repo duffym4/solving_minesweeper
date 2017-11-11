@@ -1,9 +1,10 @@
 from Board import *
 from Timer import *
 
-board = Board(10, 10, 50)
+board = Board(10, 10, 92)
 
 board.printGrid()
+
 
 print(board.getCell(5, 5))
 
@@ -22,7 +23,7 @@ def on_draw():
 	window.clear()
 	timer.label.draw()
 
-		images['blank'].blit(50, 50)
+	images['blank'].blit(50, 50)
 	for i in range(0, 9):
 		images['number-'+str(i)].blit(16*i, 0)
 
