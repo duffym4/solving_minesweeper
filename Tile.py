@@ -11,16 +11,16 @@ class Tile(object):
         self.value = value
         
         if self.value in range(0,9):
-            self.imageKey = 'number-' + value 
+            self.imageKey = 'number-' + str(value)
         elif self.value == 9:
-            self.imageKey = 'bomb'
+            self.imageKey = 'mine'
         elif self.value == 10:
             self.imageKey = 'flag'
         elif self.value == -1:
             self.imageKey = 'blank'
 
-    def draw(self, images):
-        images[self.imageKey].blit(self.x, self.y)
+    def draw(self, x0, y0, images):
+        images[self.imageKey].blit(x0 + self.x*16, y0 + 16*self.y)
 
 
 
