@@ -42,4 +42,10 @@ class Board(object):
 		return bombs
 
 	def printGrid(self):
-		print(self.grid)
+		for x in range(0, self.ncols):
+			for y in range(0, self.nrows):
+				if self.grid[y][x]:
+					print(1, end="")
+				else:
+					print(0, end="")
+			print()
