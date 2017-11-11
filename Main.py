@@ -1,7 +1,7 @@
 from Board import *
 
-board = Board(10, 10, 1)
+board = Board(10, 10, 50)
 
 board.printGrid()
 
-print(board.getCell(9, 9))
+print(board.getCell(5, 5))
