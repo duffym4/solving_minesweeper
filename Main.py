@@ -4,7 +4,8 @@ from PlayerBoard import *
 from Timer import *
 
 board = Board(10, 10, 10)
-playerBoard = PlayerBoard(board, 100, 100)
+timer = Timer()
+playerBoard = PlayerBoard(board, 100, 100,timer)
 
 window = pyglet.window.Window(caption="Hackathon Minesweeper")
 
@@ -13,7 +14,7 @@ board.printGrid()
 
 print(board.getCell(5, 5))
 
-timer = Timer()
+
 
 images = {}
 images['mine'] = pyglet.image.load('images/sprites.png').get_region(x=0, y=16*3+1, width=16, height=16)
