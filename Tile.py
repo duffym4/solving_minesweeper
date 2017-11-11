@@ -1,51 +1,33 @@
-import pyglet
-import os
 
 class Tile(object):
-    def __init__ (self, x_, y_, value_):
+    def __init__ (self, x_, y_):
         self.x = x_
         self.y = y_
-        self.value = value_
-        self.revealed = False
+
+        self.value = -1
+        self.imageKey = "blank"
+
         
     def x(self):
         return self.x
     def y(self):
         return self.y
-    def revealed(self):
-        return self.revealed    
+  
     
     def value(self):
-        if not self.revealed:
-            return -1
-        else:
-            return self.value
-        
-    def drawTile(self):
-        #pyglet.resource.path = ['cd /cygdrive/c/Users/ansela3/My Documents/GitHub/hackathon/images/tiles']
-        #pyglet.resource.reindex()  
-        
-        image = pyglet.image.load('Closed.png')
-        '''
-        if not revealed:
-            image = pyglet.resource.image('closed.png')
-        else:
-            if value == 0:
-                image = pyglet.resource.image('0.png')'''
-                
-        image.blit(0, 0)
+        return value
+    def imageKey(self):
+        return imageKey
         
         
-  
+    def activate(self, value):
+        value = value
         
-
-if __name__ == "__main__": 
-    
-    window = pyglet.window.Window()
-    window.clear()
-    
-    a = Tile(0,0,0)
-    a.drawTile()
-    
-    pyglet.app.run()
-        
+        if value in range(0,9):
+            imageKey = 'number-' + value 
+        elif value == 9:
+            imageKey = 'bomb'
+        elif value == 10:
+            imageKey = 'flag'
+        elif value == -1:
+            imageKey = 'blank'
