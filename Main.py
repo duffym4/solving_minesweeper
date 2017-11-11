@@ -1,6 +1,7 @@
 from Board import *
 from PlayerBoard import *
 from Timer import *
+from pyglet.window import mouse
 
 board = Board(10, 10, 10)
 playerBoard = PlayerBoard(board)
@@ -33,6 +34,10 @@ def on_draw():
 	for i in range(0, 9):
 		images['number-'+str(i)].blit(16*i, 0)
 
-
+@window.event
+def on_mouse_press(x, y, button, modifiers):
+	if button == mouse.LEFT:
+		print ('The left mouse button was pressed.')
+		
 pyglet.clock.schedule_interval(timer.update, 1)
 pyglet.app.run() 
