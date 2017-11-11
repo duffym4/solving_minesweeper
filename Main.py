@@ -33,6 +33,7 @@ for i in range(0, 10):
 def on_draw():
 	window.clear()
 	playerBoard.draw(100, 100, images)
+	timer.draw(images,400,400)
 	for i in range(0, 9):
 		images['number-'+str(i)].blit(16*i, 0)
 	for i in range(0, 10):
