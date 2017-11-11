@@ -3,23 +3,23 @@ import os
 
 class Tile(object):
     def __init__ (self, x_, y_, value_):
-        x = x_
-        y = y_
-        value = value_
-        revealed = False
+        self.x = x_
+        self.y = y_
+        self.value = value_
+        self.revealed = False
         
     def x(self):
-        return x
+        return self.x
     def y(self):
-        return y
+        return self.y
     def revealed(self):
-        return revealed    
+        return self.revealed    
     
     def value(self):
-        if not revealed:
+        if not self.revealed:
             return -1
         else:
-            return value
+            return self.value
         
     def drawTile(self):
         #pyglet.resource.path = ['cd /cygdrive/c/Users/ansela3/My Documents/GitHub/hackathon/images/tiles']
