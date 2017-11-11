@@ -26,17 +26,18 @@ class Board(object):
 			colPlacement = rand.randint(0,_ncols-1)
 			placed = False
 			while (not placed):
+				print(rowPlacement,colPlacement)
 				if (not self.grid[rowPlacement][colPlacement]):
 					self.grid[rowPlacement][colPlacement] = True
 					placed = True
 				else:
 					# if there is already a mine, move it
-					if (colPlacement == _ncols-1):
+					if (colPlacement >= _ncols-1):
 						rowPlacement += 1
-						if (rowPlacement == _nrows-1):
+						if (rowPlacement > _nrows-1):
 							rowPlacement = 0
 						colPlacement = -1
-					colPlacement+=1
+					colPlacement += 1
 
 	def getCell(self, x, y):
 		if self.grid[y][x]:

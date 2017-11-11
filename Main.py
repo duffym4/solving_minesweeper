@@ -1,6 +1,6 @@
 from Board import *
 
-board = Board(10, 10, 92)
+board = Board(10, 10, 100)
 
 board.printGrid()
 

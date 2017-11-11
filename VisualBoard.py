@@ -8,9 +8,8 @@ class VisualBoard(object):
 		for y in range(0, self.nrows):
 			self.grid.append([])
 			for x in range(0, self.ncols):
-				self.grid[y].append(Tile(x,y,_board[y][x]))
+				self.grid[y].append(Tile(x,y,-1))
 
 	def updateTiles(self):
 		for i in range(self.board.rows):
 			for j in range(self.board.cols):
-
