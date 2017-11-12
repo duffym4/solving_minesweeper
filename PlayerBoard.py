@@ -13,8 +13,12 @@ class PlayerBoard(object):
 		self.y0 = y0_
 		self.timer = timer_
 		self.smile = smile_
-		self.gameOver = False
 
+		self.createBoard()
+
+	def createBoard(self):
+		self.gameOver = False
+		self.grid = []
 		for y in range(0, self.nrows):
 			self.grid.append([])
 			for x in range(0, self.ncols):
@@ -62,7 +66,6 @@ class PlayerBoard(object):
 		elif button == mouse.RIGHT and self.grid[gridY][gridX].value == -1:
 			 if self.grid[gridY][gridX].imageKey == "flag":
 			 	self.grid[gridY][gridX].imageKey = "unknown"
-
 			 elif self.grid[gridY][gridX].imageKey == "unknown":
 			 	self.grid[gridY][gridX].imageKey = "blank"
 			 else:
