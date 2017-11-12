@@ -1,8 +1,9 @@
 
 class Tile(object):
-    def __init__ (self, x_, y_):
+    def __init__ (self, x_, y_, flagCounter_):
         self.x = x_
         self.y = y_
+        self.flagCounter = flagCounter_
 
         self.value = -1
         self.imageKey = "blank"
@@ -12,6 +13,9 @@ class Tile(object):
         self.updateImages()
 
     def updateImages(self):
+        if self.imageKey == 'flag':
+            self.flagCounter.value+=1
+
         if self.value in range(0,9):
             self.imageKey = 'number-' + str(self.value)
         elif self.value == 9:
@@ -22,6 +26,9 @@ class Tile(object):
             self.imageKey = 'unknown'
         elif self.value == -1:
             self.imageKey = 'blank'
+
+        if self.imageKey == 'flag':
+            self.flagCounter.value-=1
 
     def rotateMarking(self):
         print("AH")
