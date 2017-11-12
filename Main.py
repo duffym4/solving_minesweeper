@@ -58,7 +58,7 @@ def on_mouse_press(x, y, button, modifiers):
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == pyglet.window.key.H:
-    	print("Help!")
+    	SingleStepSolver(PlayerBoard)
 
 ''' Reset Game '''
 def resetGame():
