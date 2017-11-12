@@ -21,7 +21,7 @@ def getBombOptions(x0, y0, board, value):
 #value flag all adjacent tiles
 def MarkFlags(x, y, board, ranges):
 	options, count = getBombOptions(x, y, board, -1)
-	if len(options > 0):
+	if len(options) > 0:
 		ranges.append([[x, y], options, len(options) + board.grid[y][x].value - count])
 		if(board.grid[y][x].value == count+len(options)):
 			board.setMarking(options[0][0], options[0][1], 2)
@@ -104,16 +104,28 @@ def SingleStepSolver(playerBoard):
 			if(ActivateTiles(x, y, playerBoard)):
 				return
 
-	for i in len(ranges):
+	for i in range(0, len(ranges)):
 		mineCount = 0
-		for j in len(ranges):
+		for j in range(len(ranges)):
 			if(i == j):
 				continue
 			shared = 0
+			notSharedRange = ranges[i][1].copy()
 			for space in ranges[j][1]:
 				if isTouching(space[0], space[1], ranges[i][0][0], ranges[i][0][1]):
 					shared+=1
+					notSharedRange.remove(space)
+
 			mineCount += shared - ranges[j][2]
 
-		if(mineCount == playerBoard.grid[x][y])
+		if(mineCount == playerBoard.grid[x][y].value):
+			for space in notSharedRange:
+				print("nice")
+				playerBoard.activate(space[0], space[1], automated=True)
+
+
+		if(mineCount == playerBoard.grid[x][y].value - len(notShared)):
+			for space in notSharedRange:
+				print("trivial")
+				playerBoard.setMarking(space[0], space[1], 2)
 
