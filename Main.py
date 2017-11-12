@@ -3,7 +3,7 @@ from Board import *
 from PlayerBoard import *
 from Timer import *
 from Smile import *
-board = Board(30, 16, 10)
+board = Board(10,10, 10)
 timer = Timer()
 
 spriteSheet = pyglet.image.load('images/sprites.png')
@@ -12,8 +12,9 @@ s = f*16
 window = pyglet.window.Window(caption="Hackathon Minesweeper", width=s*(2+board.ncols), height=s*(4+board.nrows))
 
 playerBoard = PlayerBoard(board, s, s, timer)
-smile=Smile()
+
 images = {}
+smile=Smile()
 images['mine'] = pyglet.image.load('images/sprites.png').get_region(x=0, y=s*3+f, width=s, height=s)
 images['red_mine'] = pyglet.image.load('images/sprites.png').get_region(x=2*s, y=s*3+f, width=s, height=s)
 images['flag'] = pyglet.image.load('images/sprites.png').get_region(x=4*s, y=s*3+f, width=s, height=s)
@@ -31,11 +32,13 @@ def on_draw():
 	window.clear()
 	playerBoard.draw(images,f)
 	timer.draw(images,f,400,400)
-	images['smile-1'].blit(100,100)
+	smile.draw(images,f,100,100,1)
 
 @window.event
-def on_mouse_press(x, y, button, modifiers):
+def on_mouse_release(x, y, button, modifiers):
 	playerBoard.mouse(x, y, button, pyglet.window.mouse, f)
+	
 
 pyglet.clock.schedule_interval(timer.update, 1)
+
 pyglet.app.run() 
