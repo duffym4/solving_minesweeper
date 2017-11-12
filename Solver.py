@@ -21,6 +21,9 @@ def CountValue(x, y, board, value):
 #if a tile has an equal number of adjacent unmarked tiles to its 
 #value flag all adjacent tiles
 def MarkFlags(x, y, board):
+	if(board.grid[x][y] == -1):
+		return
+
 	blanks = CountValue(x, y, board, -1)
 	if(board.grid[x][y].value == blanks):
 		for i in range(x-1, x+1):
@@ -37,6 +40,9 @@ def MarkFlags(x, y, board):
 #if a tile has an equal number of adjacent flags to its value,
 #reveal all other adjacent tiles
 def ActivateTiles(x, y, board):
+	if(board.grid[x][y] == -1):
+		return
+		
 	flags = CountValue(x, y, board, 10)
 	if(board.grid[x][y].value == flags):
 		for i in range(x-1, x+1):
