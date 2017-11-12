@@ -104,3 +104,16 @@ def SingleStepSolver(playerBoard):
 			if(ActivateTiles(x, y, playerBoard)):
 				return
 
+	for i in len(ranges):
+		mineCount = 0
+		for j in len(ranges):
+			if(i == j):
+				continue
+			shared = 0
+			for space in ranges[j][1]:
+				if isTouching(space[0], space[1], ranges[i][0][0], ranges[i][0][1]):
+					shared+=1
+			mineCount += shared - ranges[j][2]
+
+		if(mineCount == playerBoard.grid[x][y])
+
