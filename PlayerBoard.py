@@ -4,7 +4,7 @@ class PlayerBoard(object):
 	"""
 	Display available to the player
 	"""
-	def __init__(self, board_, x0_, y0_, timer_, smile_):
+	def __init__(self, board_, x0_, y0_, timer_, smile_, flagCounter_):
 		self.grid = []
 		self.board = board_
 		self.nrows = self.board.nrows
@@ -14,6 +14,7 @@ class PlayerBoard(object):
 		self.y0 = y0_
 		self.timer = timer_
 		self.smile = smile_
+		self.flagCounter = flagCounter_
 		
 		self.createBoard()
 
@@ -25,7 +26,7 @@ class PlayerBoard(object):
 		for y in range(0, self.nrows):
 			self.grid.append([])
 			for x in range(0, self.ncols):
-				self.grid[y].append(Tile(x,y))
+				self.grid[y].append(Tile(x, y, self.flagCounter))
 		
 
 	def activate(self, x, y):
