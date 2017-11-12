@@ -12,17 +12,35 @@ def CountValue(x, y, board, value):
 			continue
 		for j in range(y-1, y+1):
 			if(j < 0 or j > cols):
-				if(board.grid[i][j].value == value):
-					count += 1
+				continue
+			if(board.grid[i][j].value == value):
+				count += 1
 
 def MarkFlags(x, y, board):
 	blanks = CountValue(x, y, board, -1)
 	if(board.grid[x][y].value == blanks):
+		for i in range(x-1, x+1):
+			if(i < 0 or i >= rows):
+				continue
+			for j in range(y-1, y+1):
+				if(j < 0 or j > cols):
+					continue
+				if(board.grid[i][j].value == -1)
+					board.setMarking(i, j, 2)
 
 def ActivateTiles(x, y, board):
 	flags = CountValue(x, y, board, 10)
 	if(board.grid[x][y].value == flags):
-=======
+		for i in range(x-1, x+1):
+			if(i < 0 or i >= rows):
+				continue
+			for j in range(y-1, y+1):
+				if(j < 0 or j > cols):
+					continue
+				if(board.grid[i][j].value == -1)
+					board.activate(i,j)
+
+
 def binarySolve(matrix):
 	for row in matrix:
 		solution = []*5
