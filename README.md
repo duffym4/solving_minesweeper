@@ -13,4 +13,4 @@ Herbert leaves behind his class of 2 years, RPI sophmores, his parents Cutler an
 
 There will be a family only viewing at the EMPAC Funeral Home on Friday November 17th, 2017 from 3pm to 5pm and a public viewing for friends and family from 7pm until 9pm. On Saturday, November 18th, the service will be held at the EMPAC Funeral Home at 10am with the procession to the cemetery to immediately follow. Herbert will be interred at the EMPAC Cemetery in the Holzbauer family plot.
 
-In remembrance of Herbert and his love for Computer Science, his school, Rensselaer students and professors, will no longer schedule Thursday Data-Structures homework, as this was the time Herbert scheduled it every week. 
+In remembrance of Herbert and his love for Computer Science, his school, Rensselaer students and professors will no longer schedule Thursday Data-Structures homework, as this was the time Herbert scheduled it every week. 
