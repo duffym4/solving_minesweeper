@@ -28,7 +28,6 @@ class Board(object):
 			colPlacement = rand.randint(0,self.ncols-1)
 			placed = False
 			while (not placed):
-				print(rowPlacement,colPlacement)
 				if (not self.grid[rowPlacement][colPlacement]):
 					self.grid[rowPlacement][colPlacement] = True
 					placed = True
