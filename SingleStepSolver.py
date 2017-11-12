@@ -104,16 +104,20 @@ def UpperTriangular(matrix):
 # 				lower -= 1
 # 		if 
 
-def SingleStepSolver(board):
+def SingleStepSolver(PlayerBoard):
 
-	rows = len(matrix)
-  	cols = len(matrix[0])
+	rows = len(PlayerBoard.grid)
+	cols = len(PlayerBoard.grid[0])
 
-  	for i in range(0,rows):
-  		for j in range(0,rows):
-  			if (board.grid[i][j].value == -1):
-  				continue
-  				if(MarkFlags(i,j)):
-  					continue
-  				elif(ActivateTiles(i,j)):
-  					continue
+	print("help")
+
+	for i in range(0,rows):
+		for j in range(0,rows):
+
+			if (PlayerBoard.grid[i][j].value == -1):
+				continue
+
+			if(MarkFlags(i,j,PlayerBoard)):
+				return
+			if(ActivateTiles(i,j,PlayerBoard)):
+				return

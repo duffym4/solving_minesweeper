@@ -6,7 +6,7 @@ from Smile import *
 from SingleStepSolver import *
 
 ''' Board Initialization '''
-board = Board(16, 16, 1)
+board = Board(16, 16, 10)
 
 ''' Window and Scaling '''
 spriteSheet = pyglet.image.load('images/sprites.png')
@@ -58,7 +58,7 @@ def on_mouse_press(x, y, button, modifiers):
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == pyglet.window.key.H:
-    	SingleStepSolver(PlayerBoard)
+    	SingleStepSolver(playerBoard)
 
 ''' Reset Game '''
 def resetGame():
