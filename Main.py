@@ -12,7 +12,7 @@ board = Board(30, 16, 99)
 spriteSheet = pyglet.image.load('images/sprites.png')
 f = int(spriteSheet.width/235) # The factor by which sprites are scaled up
 s = f*16					   # The size of a tile, given the scaling factor
-window = pyglet.window.Window(caption="Hackathon Minesweeper", width=s*(2+board.ncols), height=s*(4+board.nrows))
+window = pyglet.window.Window(caption="Solving Minesweeper", width=s*(2+board.ncols), height=s*(4+board.nrows))
 
 ''' Initializing Classes '''
 timer = Timer(window.width-s-13*f, window.height - 3*s + 13*f, f)
