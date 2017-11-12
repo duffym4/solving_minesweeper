@@ -35,6 +35,7 @@ for i in range(0, 11):
 for i in range(0, 5):
 	images['smile-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=26*f*i,y=0,width=26*f,height=26*f)
 
+
 ''' Events '''
 @window.event
 def on_draw():
@@ -59,6 +60,8 @@ def on_mouse_press(x, y, button, modifiers):
 def on_key_press(symbol, modifiers):
     if symbol == pyglet.window.key.H:
     	SingleStepSolver(playerBoard)
+    elif symbol == pyglet.window.key.P:
+    	timer.toggleAutomation(playerBoard)
 
 ''' Reset Game '''
 def resetGame():
@@ -70,5 +73,5 @@ def resetGame():
 	flagCounter.value = board.mines
 	
 ''' Startup '''
-pyglet.clock.schedule_interval(timer.update, 1)
+pyglet.clock.schedule_interval(timer.update, .05)
 pyglet.app.run() 

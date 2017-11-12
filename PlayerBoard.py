@@ -35,6 +35,8 @@ class PlayerBoard(object):
 		self.boardCounter+=1
 		if automated:
 			self.checkwin()
+			if self.grid[y][x].value==9:
+				self.loseGame(x, y)
 
 		if self.grid[y][x].value == 0:
 			for x0 in range(-1, 2):
