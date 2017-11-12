@@ -19,8 +19,8 @@ class Tile(object):
         elif self.value == -1:
             self.imageKey = 'blank'
 
-    def draw(self, x0, y0, images):
-        images[self.imageKey].blit(x0 + self.x*16, y0 + 16*self.y)
+    def draw(self, x0, y0, images, scale):
+        images[self.imageKey].blit(x0 + self.x*16*scale, y0 + 16*scale*self.y)
 
 
 

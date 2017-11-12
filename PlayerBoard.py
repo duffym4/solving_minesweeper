@@ -29,18 +29,18 @@ class PlayerBoard(object):
 						if self.grid[y+y0][x+x0].value == -1:
 							self.activate(x+x0, y+y0)
 
-	def draw(self, images):
+	def draw(self, images, scale):
 		for y in range(0, self.nrows):
 			for x in range(0, self.ncols):
-				self.grid[y][x].draw(self.x0, self.y0, images)
+				self.grid[y][x].draw(self.x0, self.y0, images, scale)
 
-	def mouse(self, x, y, button, mouse):
+	def mouse(self, x, y, button, mouse, f):
 
 		if self.gameOver:
 			return
 
-		gridX = int((x-self.x0)/16)
-		gridY = int((y-self.y0)/16)
+		gridX = int((x-self.x0)/(16*f))
+		gridY = int((y-self.y0)/(16*f))
 
 		if not (gridX in range(0, self.ncols) and gridY in range(0, self.nrows)):
 			return

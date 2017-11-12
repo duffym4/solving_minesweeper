@@ -2,46 +2,40 @@ import pyglet
 from Board import *
 from PlayerBoard import *
 from Timer import *
-
-board = Board(10, 10, 10)
+from Smile import *
+board = Board(30, 16, 10)
 timer = Timer()
-playerBoard = PlayerBoard(board, 100, 100,timer)
 
-window = pyglet.window.Window(caption="Hackathon Minesweeper")
+spriteSheet = pyglet.image.load('images/sprites.png')
+f = int(spriteSheet.width/144)
+s = f*16
+window = pyglet.window.Window(caption="Hackathon Minesweeper", width=s*(2+board.ncols), height=s*(4+board.nrows))
 
-board.printGrid()
-
-
-print(board.getCell(5, 5))
-
-
-
+playerBoard = PlayerBoard(board, s, s, timer)
+smile=Smile()
 images = {}
-images['mine'] = pyglet.image.load('images/sprites.png').get_region(x=0, y=16*3+1, width=16, height=16)
-images['red_mine'] = pyglet.image.load('images/sprites.png').get_region(x=2*16, y=16*3+1, width=16, height=16)
-images['flag'] = pyglet.image.load('images/sprites.png').get_region(x=4*16, y=16*3+1, width=16, height=16)
-images['unknown'] = pyglet.image.load('images/sprites.png').get_region(x=3*16, y=16*3+1, width=16, height=16)
-images['blank'] = pyglet.image.load('images/sprites.png').get_region(x=5*16, y=16*3+1, width=16, height=16)
-for i in range(0, 9):
-	images['number-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=16*i, y=16*4+1, width=16, height=16)
-for i in range(0, 10):
-	images['timer-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=13*i, y=26, width=13, height=23)
+images['mine'] = pyglet.image.load('images/sprites.png').get_region(x=0, y=s*3+f, width=s, height=s)
+images['red_mine'] = pyglet.image.load('images/sprites.png').get_region(x=2*s, y=s*3+f, width=s, height=s)
+images['flag'] = pyglet.image.load('images/sprites.png').get_region(x=4*s, y=s*3+f, width=s, height=s)
+images['unknown'] = pyglet.image.load('images/sprites.png').get_region(x=3*s, y=s*3+f, width=s, height=s)
+images['blank'] = pyglet.image.load('images/sprites.png').get_region(x=5*s, y=s*3+f, width=s, height=s)
 
+for i in range(0, 9):
+	images['number-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=s*i, y=s*4+1, width=s, height=s)
+for i in range(0, 10):
+	images['timer-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=13*i*f, y=26*f, width=13*f, height=23*f)
+for i in range(0,5):
+	images['smile-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=26*f*i,y=0,width=26*f,height=26*f)
 @window.event
 def on_draw():
 	window.clear()
-	playerBoard.draw(images)
-	timer.draw(images,400,400)
-	for i in range(0, 9):
-		images['number-'+str(i)].blit(16*i, 0)
-	for i in range(0, 10):
-		images['timer-'+str(i)].blit(13*i, 16)
+	playerBoard.draw(images,f)
+	timer.draw(images,f,400,400)
+	images['smile-1'].blit(100,100)
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
-	print(x)
-	print(y)
-	playerBoard.mouse(x, y, button, pyglet.window.mouse)
+	playerBoard.mouse(x, y, button, pyglet.window.mouse, f)
 
 pyglet.clock.schedule_interval(timer.update, 1)
 pyglet.app.run() 
