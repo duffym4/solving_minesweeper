@@ -19,19 +19,17 @@ def getBombOptions(x0, y0, board, value):
 	return options, flagCount
 #if a tile has an equal number of adjacent unmarked tiles to its 
 #value flag all adjacent tiles
-def MarkFlags(x, y, board):
+def MarkFlags(x, y, board, ranges):
 	options, count = getBombOptions(x, y, board, -1)
-	print(options)
-	print(count)
+	ranges.append([options, len(options) + board.grid[y][x].value - count])
 	if(board.grid[y][x].value == count+len(options) and len(options) > 0):
-		print("Marked!")
 		board.setMarking(options[0][0], options[0][1], 2)
 		return True
 	return False
 
 def isTouching(x1, y1, x2, y2):
 	return abs(x1-x2)<2 and abs(y1-y2)<2
-	
+
 #if a tile has an equal number of adjacent flags to its value,
 #reveal all other adjacent tiles
 def ActivateTiles(x, y, board):
@@ -96,6 +94,7 @@ def SingleStepSolver(playerBoard):
 
 	print("help")
 
+	ranges = []
 	for y in range(0, rows):
 		for x in range(0, cols):
 
@@ -103,7 +102,8 @@ def SingleStepSolver(playerBoard):
 			if (playerBoard.grid[y][x].value in range(-1, 1)):
 				continue
 
-			if(MarkFlags(x, y, playerBoard)):
+			if(MarkFlags(x, y, playerBoard, ranges)):
 				return
 			if(ActivateTiles(x, y, playerBoard)):
 				return
+
