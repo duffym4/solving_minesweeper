@@ -54,6 +54,11 @@ def on_mouse_release(x, y, button, modifiers):
 def on_mouse_press(x, y, button, modifiers):
 	smile.pressed(x, y, button, pyglet.window.mouse, f)
 
+@window.event
+def on_key_press(symbol, modifiers):
+    if symbol == pyglet.window.key.H:
+    	print("Help!")
+
 ''' Reset Game '''
 def resetGame():
 	smile.reset = False

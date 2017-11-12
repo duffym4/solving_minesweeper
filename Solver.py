@@ -4,7 +4,7 @@ def findSolvableRegion(playerBoard):
 	for row in range(len(playerBoard)):
 		for col in range(len(playerBoard[0])):
 			if (playerBoard[row][col] == -1):
-				variables.append((row,col))
+				variables.append([row,col])
 
 	points = []
 	for var in variables:
