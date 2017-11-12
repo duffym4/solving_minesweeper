@@ -50,7 +50,7 @@ class PlayerBoard(object):
 			self.activate(gridX, gridY)
 			if self.grid[gridY][gridX].value==9:
 				self.gameOver = True
-				self.smile.state = 3
+				self.smile.lose()
 				self.grid[gridY][gridX].imageKey = "red_mine"
 				self.timer.stop()
 				for i in range(0,self.nrows):

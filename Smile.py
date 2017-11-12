@@ -10,3 +10,7 @@ class Smile(object):
 	def released(self):
 		if self.state == 2:
 			self.state = 1
+	def win(self):
+		self.state=4
+	def lose(self):
+		self.state=3
