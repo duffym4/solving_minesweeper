@@ -49,18 +49,22 @@ def Gaussian(matrix):
 
 		#swap rows
 		for j in range(i, rows+1):
+			if(j>= cols):
+				continue
 			tmp = matrix[iMax][j]
 			matrix[iMax][j] = matrix[i][j]
 			matrix[i][j] = tmp
 
 		# Make all rows below this one 0 in current column
 		for j in range(i+1, rows):
-			c = -matrix[j][i]/matrix[i][i]
+			#c = -matrix[j][i]/matrix[i][i]
 			for k in range(i, rows+1):
 				if i == k:
 					matrix[j][k] = 0
 				else:
-					matrix[j][k] += c * matrix[i][k]
+					if(k >= cols):
+						continue
+					matrix[j][k] += matrix[i][k] #*c
 
 	return matrix
 
@@ -96,5 +100,7 @@ A = [[-1,1,0],[1,1,0],[0,0,0]]
 A = [[-1,1,0],[-1,1,0],[1, 1,0]]
 Q = findSolvableRegion(A)
 print(Q)
-R = Gaussian(Q)
+Gaussian(Q)
 print(Q)
+S = binarySolve(Q)
+print(S)
