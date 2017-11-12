@@ -26,7 +26,6 @@ class PlayerBoard(object):
 
 	def activate(self, x, y):
 		self.grid[y][x].activate(self.board.getCell(x,y))
-
 		if self.grid[y][x].value == 0:
 			for x0 in range(-1, 2):
 				for y0 in range (-1, 2):
@@ -54,7 +53,7 @@ class PlayerBoard(object):
 			self.activate(gridX, gridY)
 			if self.grid[gridY][gridX].value==9:
 				self.gameOver = True
-				self.smile.lose()
+				self.smile.state = 3
 				self.grid[gridY][gridX].imageKey = "red_mine"
 				self.timer.stop()
 				for i in range(0,self.nrows):
@@ -63,10 +62,5 @@ class PlayerBoard(object):
 							self.activate(j,i)
 									
 			
-		elif button == mouse.RIGHT and self.grid[gridY][gridX].value == -1:
-			 if self.grid[gridY][gridX].imageKey == "flag":
-			 	self.grid[gridY][gridX].imageKey = "unknown"
-			 elif self.grid[gridY][gridX].imageKey == "unknown":
-			 	self.grid[gridY][gridX].imageKey = "blank"
-			 else:
-			 	self.grid[gridY][gridX].imageKey = "flag"
+		elif button == mouse.RIGHT and self.grid[gridY][gridX].value < 0:
+			self.grid[gridY][gridX].rotateMarking()
