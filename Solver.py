@@ -1,25 +1,17 @@
 def findSolvableRegion(playerBoard):
-	augmentedMatrix = []
+	equation = []
 	variables = []
 	for row in range(len(playerBoard)):
 		for col in range(len(playerBoard[0])):
 			if (playerBoard[row][col] == -1):
 				variables.append((row,col))
+
+	points = []
 	for var in variables:
 		for x in range(-1,2):
 			for y in range(-1,2):
-	if (0<playerBoard[row][col] and playerBoard[row][col]<9):
-				equation = []
 				
-						if (row+x in range(len(playerBoard)) and col+y in range(len(playerBoard[0]))):
-							if (not (x==0 and y==0)):
-								equation.append((-1 == playerBoard[row+x][col+y])*1)
-								variable = (row+x,col+y)
-						else:
-							equation.append(0)
-				equation.append(playerBoard[row][col])
-				augmentedMatrix.append(equation)
-	return record,augmentedMatrix
+	return equation
 
 		
 def Gaussian(matrix):
@@ -82,4 +74,4 @@ def binarySolve(matrix):
 	return solution
 A = [[-1,1,0],[1,1,0],[0,0,0]]
 Q = findSolvableRegion(A)
-print(Q[1])
+print(Q)
