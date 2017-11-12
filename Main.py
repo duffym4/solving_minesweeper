@@ -3,6 +3,7 @@ from Board import *
 from PlayerBoard import *
 from Timer import *
 from Smile import *
+from SingleStepSolver import *
 
 ''' Board Initialization '''
 board = Board(16, 16, 1)
