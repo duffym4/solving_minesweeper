@@ -3,7 +3,7 @@ from Board import *
 from PlayerBoard import *
 from Timer import *
 from Smile import *
-board = Board(30, 16, 10)
+board = Board(30, 16, 300)
 timer = Timer()
 
 spriteSheet = pyglet.image.load('images/sprites.png')
