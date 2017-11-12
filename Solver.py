@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 
 
 def CountValue(x, y, board, value):
@@ -13,6 +11,8 @@ def CountValue(x, y, board, value):
 		for j in range(y-1, y+1):
 			if(j < 0 or j > cols):
 				continue
+			if(i == x and j ==y):
+				continue
 			if(board.grid[i][j].value == value):
 				count += 1
 
@@ -25,6 +25,8 @@ def MarkFlags(x, y, board):
 			for j in range(y-1, y+1):
 				if(j < 0 or j > cols):
 					continue
+				if(i == x and j ==y):
+					continue
 				if(board.grid[i][j].value == -1)
 					board.setMarking(i, j, 2)
 
@@ -36,6 +38,8 @@ def ActivateTiles(x, y, board):
 				continue
 			for j in range(y-1, y+1):
 				if(j < 0 or j > cols):
+					continue
+				if(i == x and j ==y):
 					continue
 				if(board.grid[i][j].value == -1)
 					board.activate(i,j)
@@ -51,4 +55,3 @@ def binarySolve(matrix):
 			else
 				lower -= 1
 		if 
->>>>>>> 4ae552e3c1ffb9b84acab730e06829898cec0ce3
