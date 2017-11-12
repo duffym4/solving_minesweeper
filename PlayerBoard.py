@@ -29,10 +29,12 @@ class PlayerBoard(object):
 				self.grid[y].append(Tile(x, y, self.flagCounter))
 		
 
-	def activate(self, x, y):
+	def activate(self, x, y, automated=False):
 		self.grid[y][x].activate(self.board.getCell(x,y))
 
 		self.boardCounter+=1
+		if automated:
+			self.checkwin()
 
 		if self.grid[y][x].value == 0:
 			for x0 in range(-1, 2):
@@ -52,9 +54,9 @@ class PlayerBoard(object):
 				self.grid[y][x].draw(self.x0, self.y0, images, scale)
 
 	def setMarking(self, x, y, mark):
-		if self.grid[gridY][gridX].value < 0:
-			self.grid[gridY][gridX].value = -mark
-			self.grid[gridY][gridX].updateImages()
+		if self.grid[y][x].value < 0:
+			self.grid[y][x].value = -2
+			self.grid[y][x].updateImages()
 
 	def revealBomb(self, x, y, flag):
 		self.grid[y][x].value = 9

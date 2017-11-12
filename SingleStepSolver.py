@@ -1,61 +1,46 @@
 #count how many of an input value are in adjacent tiles to the 
 #input x and y value
-def CountValue(x, y, board, value):
+def getBombOptions(x0, y0, board, value):
 	rows = board.nrows
 	cols = board.ncols
 
-	count = 0
-	for i in range(x-1, x+1):
-		if(i < 0 or i >= rows):
-			continue
-		for j in range(y-1, y+1):
-			if(j < 0 or j > cols):
-				continue
-			#do not count yourself
-			if(i == x and j ==y):
-				continue
-			if(board.grid[i][j].value == value):
-				count += 1
+	options = []
+	flagCount = 0
+
+	for x in range(x0-1, x0+2):
+		for y in range(y0-1, y0+2):
+			if x != x0 or y != y0:
+				if x in range(0, cols) and y in range(0, rows):
+					if board.grid[y][x].value == value:
+						options.append([x, y])
+					elif board.grid[y][x].value == -2:
+						flagCount += 1
+
+	return options, flagCount
 #if a tile has an equal number of adjacent unmarked tiles to its 
 #value flag all adjacent tiles
 def MarkFlags(x, y, board):
-	change = False
+	options, count = getBombOptions(x, y, board, -1)
+	print(options)
+	print(count)
+	if(board.grid[y][x].value == count+len(options) and len(options) > 0):
+		print("Marked!")
+		board.setMarking(options[0][0], options[0][1], 2)
+		return True
+	return False
 
-	blanks = CountValue(x, y, board, -1)
-	if(board.grid[x][y].value == blanks):
-		for i in range(x-1, x+1):
-			if(i < 0 or i >= rows):
-				continue
-			for j in range(y-1, y+1):
-				if(j < 0 or j > cols):
-					continue
-				if(i == x and j ==y):
-					continue
-				if(board.grid[i][j].value == -1):
-					board.setMarking(i, j, 2)
-					change = True
-	return change
-
+def isTouching(x1, y1, x2, y2):
+	return abs(x1-x2)<2 and abs(y1-y2)<2
+	
 #if a tile has an equal number of adjacent flags to its value,
 #reveal all other adjacent tiles
 def ActivateTiles(x, y, board):
-	change = False
 
-	flags = CountValue(x, y, board, 10)
-	if(board.grid[x][y].value == flags):
-		for i in range(x-1, x+1):
-			if(i < 0 or i >= rows):
-				continue
-			for j in range(y-1, y+1):
-				if(j < 0 or j > cols):
-					continue
-				if(i == x and j ==y):
-					continue
-				if(board.grid[i][j].value == -1):
-					board.activate(i,j)
-					change = True
-	return change
-
+	options, count = getBombOptions(x, y, board, -1)
+	if(board.grid[y][x].value == count and len(options) > 0):
+		board.activate(options[0][0], options[0][1], automated=True)
+		return True
+	return False
 
 #reduces a matrix to upper triangular form
 def UpperTriangular(matrix):
@@ -104,20 +89,21 @@ def UpperTriangular(matrix):
 # 				lower -= 1
 # 		if 
 
-def SingleStepSolver(PlayerBoard):
+def SingleStepSolver(playerBoard):
 
-	rows = len(PlayerBoard.grid)
-	cols = len(PlayerBoard.grid[0])
+	rows = len(playerBoard.grid)
+	cols = len(playerBoard.grid[0])
 
 	print("help")
 
-	for i in range(0,rows):
-		for j in range(0,rows):
+	for y in range(0, rows):
+		for x in range(0, cols):
 
-			if (PlayerBoard.grid[i][j].value == -1):
+			print(playerBoard.grid[y][x].value)
+			if (playerBoard.grid[y][x].value in range(-1, 1)):
 				continue
 
-			if(MarkFlags(i,j,PlayerBoard)):
+			if(MarkFlags(x, y, playerBoard)):
 				return
-			if(ActivateTiles(i,j,PlayerBoard)):
+			if(ActivateTiles(x, y, playerBoard)):
 				return

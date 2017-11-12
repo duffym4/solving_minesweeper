@@ -6,7 +6,7 @@ from Smile import *
 from SingleStepSolver import *
 
 ''' Board Initialization '''
-board = Board(16, 16, 10)
+board = Board(30, 16, 99)
 
 ''' Window and Scaling '''
 spriteSheet = pyglet.image.load('images/sprites.png')
@@ -65,8 +65,9 @@ def resetGame():
 	smile.reset = False
 	board.createBoard()
 	playerBoard.createBoard()
-	timer.time = 0
+	timer.time.value = 0
 	timer.running = True
+	flagCounter.value = board.mines
 	
 ''' Startup '''
 pyglet.clock.schedule_interval(timer.update, 1)
