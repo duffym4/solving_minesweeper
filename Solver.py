@@ -28,7 +28,6 @@ def findSolvableRegion(playerBoard):
 
 	return equation
 
-		
 
 def Gaussian(matrix):
 

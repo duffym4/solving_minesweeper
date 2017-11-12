@@ -5,7 +5,7 @@ class Number(object):
         self.y = y
 
     def draw(self,images,scale):
-        i = abs(self.value)
+        i = abs(int(self.value))
 
         images["timer-"+str(int(i%10))].blit(self.x, self.y)
         images["timer-"+str(int(i/10%10))].blit(self.x-13*scale,self.y)
