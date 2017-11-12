@@ -12,7 +12,9 @@ class Board(object):
 		self.nrows = _nrows
 		self.ncols = _ncols
 		self.mines = _mines
-		
+		self.createBoard()
+
+	def createBoard(self):
 		# Initialize grid
 		self.grid = []
 		for y in range(0, self.nrows):
@@ -21,9 +23,9 @@ class Board(object):
 				self.grid[y].append(False)
 
 		# Place the mines
-		for i in range(_mines):
-			rowPlacement = rand.randint(0,_nrows-1)
-			colPlacement = rand.randint(0,_ncols-1)
+		for i in range(self.mines):
+			rowPlacement = rand.randint(0,self.nrows-1)
+			colPlacement = rand.randint(0,self.ncols-1)
 			placed = False
 			while (not placed):
 				print(rowPlacement,colPlacement)
@@ -32,9 +34,9 @@ class Board(object):
 					placed = True
 				else:
 					# if there is already a mine, move it
-					if (colPlacement >= _ncols-1):
+					if (colPlacement >= self.ncols-1):
 						rowPlacement += 1
-						if (rowPlacement > _nrows-1):
+						if (rowPlacement > self.nrows-1):
 							rowPlacement = 0
 						colPlacement = -1
 					colPlacement += 1

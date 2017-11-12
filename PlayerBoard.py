@@ -4,16 +4,21 @@ class PlayerBoard(object):
 	"""
 	Display available to the player
 	"""
-	def __init__(self, board_, x0_, y0_, timer):
+	def __init__(self, board_, x0_, y0_, timer_, smile_):
 		self.grid = []
 		self.board = board_
 		self.nrows = self.board.nrows
 		self.ncols = self.board.ncols
 		self.x0 = x0_
 		self.y0 = y0_
-		self.timer=timer
-		self.gameOver = False
+		self.timer = timer_
+		self.smile = smile_
 
+		self.createBoard()
+
+	def createBoard(self):
+		self.gameOver = False
+		self.grid = []
 		for y in range(0, self.nrows):
 			self.grid.append([])
 			for x in range(0, self.ncols):
@@ -21,7 +26,6 @@ class PlayerBoard(object):
 
 	def activate(self, x, y):
 		self.grid[y][x].activate(self.board.getCell(x,y))
-
 		if self.grid[y][x].value == 0:
 			for x0 in range(-1, 2):
 				for y0 in range (-1, 2):
@@ -49,6 +53,7 @@ class PlayerBoard(object):
 			self.activate(gridX, gridY)
 			if self.grid[gridY][gridX].value==9:
 				self.gameOver = True
+				self.smile.state = 3
 				self.grid[gridY][gridX].imageKey = "red_mine"
 				self.timer.stop()
 				for i in range(0,self.nrows):
@@ -57,11 +62,5 @@ class PlayerBoard(object):
 							self.activate(j,i)
 									
 			
-		elif button == mouse.RIGHT and self.grid[gridY][gridX].value == -1:
-			 if self.grid[gridY][gridX].imageKey == "flag":
-			 	self.grid[gridY][gridX].imageKey = "unknown"
-
-			 elif self.grid[gridY][gridX].imageKey == "unknown":
-			 	self.grid[gridY][gridX].imageKey = "blank"
-			 else:
-			 	self.grid[gridY][gridX].imageKey = "flag"
+		elif button == mouse.RIGHT and self.grid[gridY][gridX].value < 0:
+			self.grid[gridY][gridX].rotateMarking()

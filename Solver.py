@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 
@@ -21,3 +22,15 @@ def MarkFlags(x, y, board):
 def ActivateTiles(x, y, board):
 	flags = CountValue(x, y, board, 10)
 	if(board.grid[x][y].value == flags):
+=======
+def binarySolve(matrix):
+	for row in matrix:
+		solution = []*5
+		upper, lower = (0,0)
+		for element in row[:-1]:
+			if element == 1:
+				upper += 1
+			else
+				lower -= 1
+		if 
+>>>>>>> 4ae552e3c1ffb9b84acab730e06829898cec0ce3
