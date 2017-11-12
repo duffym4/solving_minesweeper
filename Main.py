@@ -6,7 +6,7 @@ from Smile import *
 
 ''' Board Initialization '''
 
-board = Board(30, 16, 10)
+board = Board(30, 16, 1)
 
 ''' Window and Scaling '''
 spriteSheet = pyglet.image.load('images/sprites.png')
