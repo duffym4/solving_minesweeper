@@ -3,7 +3,7 @@ from Board import *
 from PlayerBoard import *
 from Timer import *
 from Smile import *
-board = Board(10,10, 10)
+board = Board(30, 16, 10)
 timer = Timer()
 
 spriteSheet = pyglet.image.load('images/sprites.png')
@@ -27,18 +27,23 @@ for i in range(0, 10):
 	images['timer-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=13*i*f, y=26*f, width=13*f, height=23*f)
 for i in range(0,5):
 	images['smile-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=26*f*i,y=0,width=26*f,height=26*f)
+
 @window.event
 def on_draw():
 	window.clear()
 	playerBoard.draw(images,f)
-	timer.draw(images,f,400,400)
-	smile.draw(images,f,100,100,1)
+	timer.draw(images,f, (3/4)*(window.width-26*f), window.height - 3*s + 13*f)
+	smile.draw(images, f, (window.width-26*f)/2, window.height - 3*s + 13*f, 1)
 
 @window.event
 def on_mouse_release(x, y, button, modifiers):
 	playerBoard.mouse(x, y, button, pyglet.window.mouse, f)
+	smile.released()
+
+@window.event
+def on_mouse_press(x, y, button, modifiers):
+	smile.pressed()
 	
 
 pyglet.clock.schedule_interval(timer.update, 1)
-
 pyglet.app.run() 
