@@ -15,7 +15,7 @@ class Tile(object):
         if self.value in range(0,9):
             self.imageKey = 'number-' + str(self.value)
         elif self.value == 9:
-            self.imageKey = 'mine'
+            self.imageKey = 'mine-0'
         elif self.value == -2:
             self.imageKey = 'flag'
         elif self.value == -3:
@@ -24,6 +24,7 @@ class Tile(object):
             self.imageKey = 'blank'
 
     def rotateMarking(self):
+        print("AH")
         self.value -= 1
         if self.value == -4:
             self.value = -1

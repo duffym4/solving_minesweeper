@@ -5,12 +5,12 @@ from Timer import *
 from Smile import *
 
 ''' Board Initialization '''
-board = Board(30, 16, 100)
+board = Board(30, 16, 99)
 
 ''' Window and Scaling '''
 spriteSheet = pyglet.image.load('images/sprites.png')
-f = int(spriteSheet.width/144)
-s = f*16
+f = int(spriteSheet.width/144) # The factor by which sprites are scaled up
+s = f*16					   # The size of a tile, given the scaling factor
 window = pyglet.window.Window(caption="Hackathon Minesweeper", width=s*(2+board.ncols), height=s*(4+board.nrows))
 
 ''' Initializing Classes '''
@@ -20,12 +20,12 @@ playerBoard = PlayerBoard(board, s, s, timer, smile)
 
 ''' Image Initialization '''
 images = {}
-images['mine'] = pyglet.image.load('images/sprites.png').get_region(x=0, y=s*3+f, width=s, height=s)
-images['red_mine'] = pyglet.image.load('images/sprites.png').get_region(x=2*s, y=s*3+f, width=s, height=s)
 images['flag'] = pyglet.image.load('images/sprites.png').get_region(x=4*s, y=s*3+f, width=s, height=s)
 images['unknown'] = pyglet.image.load('images/sprites.png').get_region(x=3*s, y=s*3+f, width=s, height=s)
 images['blank'] = pyglet.image.load('images/sprites.png').get_region(x=5*s, y=s*3+f, width=s, height=s)
 
+for i in range(0, 3):
+	images['mine-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=s*i, y=s*3+f, width=s, height=s)
 for i in range(0, 9):
 	images['number-'+str(i)] = pyglet.image.load('images/sprites.png').get_region(x=s*i, y=s*4+1, width=s, height=s)
 for i in range(0, 10):

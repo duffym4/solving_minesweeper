@@ -20,6 +20,7 @@ class PlayerBoard(object):
 	def createBoard(self):
 		self.boardCounter=0
 		self.gameOver = False
+		self.gameWon = False
 		self.grid = []
 		for y in range(0, self.nrows):
 			self.grid.append([])
@@ -41,6 +42,8 @@ class PlayerBoard(object):
 	def checkwin(self):
 		if self.boardCounter==self.nrows*self.ncols-self.mines:
 			self.smile.win()
+			self.gameWon = True
+			self.timer.stop()
 			
 	def draw(self, images, scale):
 		for y in range(0, self.nrows):
@@ -50,10 +53,18 @@ class PlayerBoard(object):
 	def setMarking(self, x, y, mark):
 		if self.grid[gridY][gridX].value < 0:
 			self.grid[gridY][gridX].value = -mark
+			self.grid[gridY][gridX].updateImages()
+
+	def revealBomb(self, x, y, flag):
+		self.grid[y][x].value = 9
+		self.grid[y][x].updateImages()
+		if flag:
+			self.grid[y][x].imageKey = "mine-1"
+		#if flag:
 
 	def mouse(self, x, y, button, mouse, f):
 
-		if self.gameOver:
+		if self.gameOver or self.gameWon:
 			return
 
 		gridX = int((x-self.x0)/(16*f))
@@ -66,17 +77,19 @@ class PlayerBoard(object):
 			self.activate(gridX, gridY)
 			self.checkwin()
 			if self.grid[gridY][gridX].value==9:
-				self.gameOver = True
-				self.smile.state = 3
-				self.grid[gridY][gridX].imageKey = "red_mine"
-				self.timer.stop()
-				for i in range(0,self.nrows):
-					for j in range(0,self.ncols):
-						if self.board.getCell(j,i)==9 and self.grid[i][j].value==-1:
-							self.activate(j,i)
-									
-
+				self.loseGame(gridX, gridY)
 		elif button == mouse.RIGHT and self.grid[gridY][gridX].value < 0:
 			self.grid[gridY][gridX].rotateMarking()
 		
+
+	def loseGame(self, x, y):
+		self.gameOver = True
+		self.smile.state = 3
+		self.grid[y][x].imageKey = "mine-2"
+		self.timer.stop()
+		for i in range(0,self.nrows):
+			for j in range(0,self.ncols):
+				if self.board.getCell(j,i)==9 and self.grid[i][j].value < 0:
+					self.revealBomb(j, i, self.grid[i][j].value < -1)
+									
 		
