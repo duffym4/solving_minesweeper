@@ -4,14 +4,15 @@ class PlayerBoard(object):
 	"""
 	Display available to the player
 	"""
-	def __init__(self, board_, x0_, y0_, timer):
+	def __init__(self, board_, x0_, y0_, timer_, smile_):
 		self.grid = []
 		self.board = board_
 		self.nrows = self.board.nrows
 		self.ncols = self.board.ncols
 		self.x0 = x0_
 		self.y0 = y0_
-		self.timer=timer
+		self.timer = timer_
+		self.smile = smile_
 		self.gameOver = False
 
 		for y in range(0, self.nrows):
@@ -49,6 +50,7 @@ class PlayerBoard(object):
 			self.activate(gridX, gridY)
 			if self.grid[gridY][gridX].value==9:
 				self.gameOver = True
+				self.smile.state = 3
 				self.grid[gridY][gridX].imageKey = "red_mine"
 				self.timer.stop()
 				for i in range(0,self.nrows):

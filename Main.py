@@ -11,10 +11,10 @@ f = int(spriteSheet.width/144)
 s = f*16
 window = pyglet.window.Window(caption="Hackathon Minesweeper", width=s*(2+board.ncols), height=s*(4+board.nrows))
 
-playerBoard = PlayerBoard(board, s, s, timer)
+smile=Smile()
+playerBoard = PlayerBoard(board, s, s, timer, smile)
 
 images = {}
-smile=Smile()
 images['mine'] = pyglet.image.load('images/sprites.png').get_region(x=0, y=s*3+f, width=s, height=s)
 images['red_mine'] = pyglet.image.load('images/sprites.png').get_region(x=2*s, y=s*3+f, width=s, height=s)
 images['flag'] = pyglet.image.load('images/sprites.png').get_region(x=4*s, y=s*3+f, width=s, height=s)

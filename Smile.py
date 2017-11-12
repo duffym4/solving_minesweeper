@@ -5,6 +5,8 @@ class Smile(object):
 	def draw(self,images,scale,x,y,smileNum):
 		images['smile-'+str(self.state)].blit(x,y)
 	def pressed(self):
-		self.state = 2
+		if self.state == 1:
+			self.state = 2
 	def released(self):
-		self.state = 1
+		if self.state == 2:
+			self.state = 1
