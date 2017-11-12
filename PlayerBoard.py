@@ -30,6 +30,10 @@ class PlayerBoard(object):
 		
 
 	def activate(self, x, y, automated=False):
+
+		if self.grid[y][x].value >= 0:
+			return
+
 		self.grid[y][x].activate(self.board.getCell(x,y))
 
 		self.boardCounter+=1
@@ -65,7 +69,6 @@ class PlayerBoard(object):
 		self.grid[y][x].updateImages()
 		if flag:
 			self.grid[y][x].imageKey = "mine-1"
-		#if flag:
 
 	def mouse(self, x, y, button, mouse, f):
 
