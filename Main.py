@@ -5,8 +5,7 @@ from Timer import *
 from Smile import *
 
 ''' Board Initialization '''
-
-board = Board(30, 16, 1)
+board = Board(30, 16, 100)
 
 ''' Window and Scaling '''
 spriteSheet = pyglet.image.load('images/sprites.png')

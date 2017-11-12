@@ -47,6 +47,10 @@ class PlayerBoard(object):
 			for x in range(0, self.ncols):
 				self.grid[y][x].draw(self.x0, self.y0, images, scale)
 
+	def setMarking(self, x, y, mark):
+		if self.grid[gridY][gridX].value < 0:
+			self.grid[gridY][gridX].value = -mark
+
 	def mouse(self, x, y, button, mouse, f):
 
 		if self.gameOver:
