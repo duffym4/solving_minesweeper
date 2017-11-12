@@ -5,6 +5,7 @@ from Timer import *
 from Smile import *
 
 ''' Board Initialization '''
+
 board = Board(30, 16, 10)
 
 ''' Window and Scaling '''

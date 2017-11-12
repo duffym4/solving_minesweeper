@@ -9,31 +9,37 @@ class PlayerBoard(object):
 		self.board = board_
 		self.nrows = self.board.nrows
 		self.ncols = self.board.ncols
+		self.mines=self.board.mines
 		self.x0 = x0_
 		self.y0 = y0_
 		self.timer = timer_
 		self.smile = smile_
-
+		
 		self.createBoard()
 
 	def createBoard(self):
+		self.boardCounter=0
 		self.gameOver = False
 		self.grid = []
 		for y in range(0, self.nrows):
 			self.grid.append([])
 			for x in range(0, self.ncols):
 				self.grid[y].append(Tile(x,y))
+		
 
 	def activate(self, x, y):
 		self.grid[y][x].activate(self.board.getCell(x,y))
-
+		self.boardCounter+=1
 		if self.grid[y][x].value == 0:
 			for x0 in range(-1, 2):
 				for y0 in range (-1, 2):
 					if (y + y0) in range (0, self.nrows) and (x + x0) in range(0, self.ncols):
 						if self.grid[y+y0][x+x0].value == -1:
 							self.activate(x+x0, y+y0)
-
+	def checkwin(self):
+		if self.boardCounter==self.nrows*self.ncols-self.mines:
+			self.smile.win()
+			
 	def draw(self, images, scale):
 		for y in range(0, self.nrows):
 			for x in range(0, self.ncols):
@@ -70,3 +76,4 @@ class PlayerBoard(object):
 			 	self.grid[gridY][gridX].imageKey = "blank"
 			 else:
 			 	self.grid[gridY][gridX].imageKey = "flag"
+		self.checkwin()
