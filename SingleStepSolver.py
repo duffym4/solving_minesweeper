@@ -41,7 +41,7 @@ def ActivateTiles(x, y, board):
 	options, count = getBombOptions(x, y, board)
 	#reveal an adjacent unmarked tile if the tile value equals the number of adjacent flags
 	if(board.grid[y][x].value == count and len(options) > 0):
-		board.activate(options[0][0], options[0][1], automated=True)
+		board.activate(options[0][0], options[0][1], userClicked=True)
 		return True
 	return False
 
@@ -106,7 +106,7 @@ def SingleStepSolver(playerBoard):
 			#if we know the ranges where all adjacent remaining mines are, reveal an adjacent tile
 			if(mineCount == minesLeft(iPosition[0], iPosition[1], playerBoard, iFlags)):
 				for space in notSharedRange:
-					playerBoard.activate(space[0], space[1], automated=True)
+					playerBoard.activate(space[0], space[1], userClicked=True)
 					return
 
 			#if we know the minimum number of mines is in an overlap and that 

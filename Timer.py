@@ -15,19 +15,28 @@ class Timer(object):
         self.automatic = False
         self.start()
 
+    ''' reset timer and set running to true '''
     def start(self):
         self.time = Number(0, self.x, self.y)
         self.running=True
         return self.time.value
 
+    ''' only update when timer should be running .. '''
     def update(self,dt):
         if self.running:
+
+            ''' if the runbutton was pressed, toggle automatic '''
             if self.runButton.bang:
               self.automatic = not self.automatic
               self.runButton.bang = False
+
+
+            ''' if the helpbutton was pressed, display hint '''
             if self.helpButton.bang:
               SingleStepSolver(self.playerBoard)
               self.helpButton.bang = False
+
+            ''' increment timer, call a new hint if automatic mode is on '''
             self.time.value = min(999,self.time.value+.1)
             if self.automatic:
               if SingleStepSolver(self.playerBoard) == "stop":
@@ -36,6 +45,7 @@ class Timer(object):
     def stop(self):
         self.running=False
 
+    ''' pass mouse queues to buttons '''
     def pressed(self, x, y, button, mouse, f):
       self.runButton.pressed(x, y, button, mouse, f)
       self.helpButton.pressed(x, y, button, mouse, f)
@@ -44,6 +54,7 @@ class Timer(object):
       self.runButton.released(x, y, button, mouse, f)
       self.helpButton.released(x, y, button, mouse, f)
 
+    ''' draw all included objects '''
     def draw(self,images):
         self.time.draw(images, self.f)
         self.runButton.draw(images)

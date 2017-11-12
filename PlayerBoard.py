@@ -15,9 +15,9 @@ class PlayerBoard(object):
 		self.timer = timer_
 		self.smile = smile_
 		self.flagCounter = flagCounter_
-		
 		self.createBoard()
 
+	''' reset all values for starting the game, and create a blank board '''
 	def createBoard(self):
 		self.boardCounter=0
 		self.gameOver = False
@@ -28,53 +28,66 @@ class PlayerBoard(object):
 			for x in range(0, self.ncols):
 				self.grid[y].append(Tile(x, y, self.flagCounter))
 		
+	''' called when a tile is overturned, either by clicking, a hint, or by the recursive unfolding of tiles which touch no bombs '''
+	def activate(self, x, y, userClicked=False):
 
-	def activate(self, x, y, automated=False):
-
+		''' ensure the tile is one which may be pressed '''
 		if self.grid[y][x].value >= 0:
 			return
 
+		''' activate the individual tile object '''
 		self.grid[y][x].activate(self.board.getCell(x,y))
 
+		''' increase the board counter (used to check whether the board is complete) '''
 		self.boardCounter+=1
-		if automated:
+
+		''' if this function was called directly, not recursively, check win/loss conditions '''
+		if userClicked:
 			self.checkwin()
 			if self.grid[y][x].value==9:
 				self.loseGame(x, y)
 
+		''' if this reveals a tile touching no bombs, recursively unfold the surrounding tiles '''
 		if self.grid[y][x].value == 0:
 			for x0 in range(-1, 2):
 				for y0 in range (-1, 2):
 					if (y + y0) in range (0, self.nrows) and (x + x0) in range(0, self.ncols):
 						if self.grid[y+y0][x+x0].value == -1:
 							self.activate(x+x0, y+y0)
+
+	''' check win conditions '''
 	def checkwin(self):
 		if self.boardCounter==self.nrows*self.ncols-self.mines:
 			self.smile.win()
 			self.gameWon = True
 			self.timer.stop()
 			
+	''' draw each tile object '''
 	def draw(self, images, scale):
 		for y in range(0, self.nrows):
 			for x in range(0, self.ncols):
 				self.grid[y][x].draw(self.x0, self.y0, images, scale)
 
+	''' set marking to 1=blank, 2=flag, 3=unkown '''
 	def setMarking(self, x, y, mark):
 		if self.grid[y][x].value < 0:
 			self.grid[y][x].value = -2
 			self.grid[y][x].updateImages()
 
+	''' attempt to reveal a bomb (called after the player loses, used to show remaining bombs) '''
 	def revealBomb(self, x, y, flag):
 		self.grid[y][x].value = 9
 		self.grid[y][x].updateImages()
 		if flag:
 			self.grid[y][x].imageKey = "mine-1"
 
+	''' called when mouse is released '''
 	def mouse(self, x, y, button, mouse, f):
 
 		if self.gameOver or self.gameWon:
 			return
 
+		''' get the tile that the mouse is hovering '''
 		gridX = int((x-self.x0)/(16*f))
 		gridY = int((y-self.y0)/(16*f))
 
@@ -82,14 +95,12 @@ class PlayerBoard(object):
 			return
 
 		if button == mouse.LEFT:
-			self.activate(gridX, gridY)
-			self.checkwin()
-			if self.grid[gridY][gridX].value==9:
-				self.loseGame(gridX, gridY)
+			self.activate(gridX, gridY, userClicked=True)
+
 		elif button == mouse.RIGHT and self.grid[gridY][gridX].value < 0:
 			self.grid[gridY][gridX].rotateMarking()
 		
-
+	''' react to a loss by revealing bombs and setting states / stopping timers '''
 	def loseGame(self, x, y):
 		self.gameOver = True
 		self.smile.state = 3
@@ -99,5 +110,3 @@ class PlayerBoard(object):
 			for j in range(0,self.ncols):
 				if self.board.getCell(j,i)==9 and self.grid[i][j].value < 0:
 					self.revealBomb(j, i, self.grid[i][j].value < -1)
-									
-		
