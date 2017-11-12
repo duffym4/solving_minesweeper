@@ -92,8 +92,9 @@ def binarySolve(matrix):
 					solution[i] = 1
 	return solution
 
-A = [[-1,1,0],[1,1,0],[0,0,0]]
-A = [[-1,1,0],[-1,1,0],[1, 1,0]]
+A = [[-1, 1, 0], [-1, 1, 0], [1, 1, 0]]
+A = [[-1, 2, 0], [-1, 2, 0], [1, 1, 0]]
+A = [[2, -1, 2], [3, -1, 3], [2, -1, 2]]
 Q = findSolvableRegion(A)
 print(Q)
 R = Gaussian(Q)
