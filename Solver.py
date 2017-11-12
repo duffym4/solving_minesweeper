@@ -8,12 +8,30 @@ def findSolvableRegion(playerBoard):
 
 	points = []
 	for var in variables:
-		for x in range(-1,2):
-			for y in range(-1,2):
-				
+		for x in range(var[1]-1, var[1]+2):
+			for y in range(var[0]-1, var[0]+2):
+				if x in range(0, len(playerBoard[0])) and y in range(0, len(playerBoard)):
+					if playerBoard[y][x] in range(1, 9):
+						if not [x, y] in points:
+							points.append([x, y])
+							equation.append([])
+							for var2 in variables:
+								if isTouching(var2[1], var2[0], x, y):
+									equation[-1].append(1)
+								else:
+									equation[-1].append(0)
+
+							equation[-1].append(playerBoard[y][x])
+
+
+	print(points)
+
 	return equation
 
 		
+def isTouching(x1, y1, x2, y2):
+	return abs(x1-x2)<2 and abs(y1-y2)<2
+
 def Gaussian(matrix):
 
 	rows = len(matrix)
@@ -75,5 +93,8 @@ def binarySolve(matrix):
 	return solution
 
 A = [[-1,1,0],[1,1,0],[0,0,0]]
+A = [[-1,1,0],[-1,1,0],[1, 1,0]]
 Q = findSolvableRegion(A)
+print(Q)
+R = Gaussian(Q)
 print(Q)
