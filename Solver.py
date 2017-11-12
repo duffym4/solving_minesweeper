@@ -45,6 +45,7 @@ def Gaussian(matrix):
 					matrix[j][k] += c * matrix[i][k]
 
 	return matrix
+
 def binarySolve(matrix):
 	"""
 	Augmented Row Reduced matrix as input
@@ -72,6 +73,7 @@ def binarySolve(matrix):
 				elif row[i] == -1:
 					solution[i] = 1
 	return solution
+
 A = [[-1,1,0],[1,1,0],[0,0,0]]
 Q = findSolvableRegion(A)
 print(Q)
