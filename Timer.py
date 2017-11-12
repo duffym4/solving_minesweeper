@@ -1,22 +1,22 @@
 import datetime
 import time
+from Number import *
+
 
 class Timer(object): 
-    def __init__(self):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
         self.start()
     def start(self):
-        self.time = 0
+        self.time = Number(0, self.x, self.y)
         self.running=True
-        return self.time   
+        return self.time.value
     def update(self,dt):
         if self.running:
-            self.time = min(999,self.time+1)
+            self.time.value = min(999,self.time.value+1)
     def stop(self):
         self.running=False
-    def draw(self,images,scale,x,y):
-        i=0
-        images["timer-"+str(int(self.time%10))].blit(x,y)
-        
-        images["timer-"+str(int(self.time/10%10))].blit(x-13*scale,y)
-        images["timer-"+str(int(self.time/100%100))].blit(x-26*scale,y)  
+    def draw(self,images,scale):
+        self.time.draw(images, scale)
             
