@@ -37,7 +37,7 @@ class Timer(object):
               self.helpButton.bang = False
 
             ''' increment timer, call a new hint if automatic mode is on '''
-            self.time.value = min(999,self.time.value+.1)
+            self.time.value = min(999,self.time.value+.05)
             if self.automatic:
               if SingleStepSolver(self.playerBoard) == "stop":
                 self.automatic = False

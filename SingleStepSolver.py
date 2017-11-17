@@ -41,7 +41,7 @@ def ActivateTiles(x, y, board):
 	options, count = getBombOptions(x, y, board)
 	#reveal an adjacent unmarked tile if the tile value equals the number of adjacent flags
 	if(board.grid[y][x].value == count and len(options) > 0):
-		board.activate(options[0][0], options[0][1], userClicked=True)
+		board.activate(options[0][0], options[0][1])
 		return True
 	return False
 
@@ -77,12 +77,18 @@ def SingleStepSolver(playerBoard):
 			if(ActivateTiles(j, i, playerBoard)):
 				return
 
+	totalOptions = []
+	if len(ranges)==1:
+		for space in ranges[0][1]:
+			totalOptions.append(space)
+
 	#use ranges that mines can be in to calculate solutions
 	for i in range(0, len(ranges)):
 		iPosition = ranges[i][0]
 		iOptions = ranges[i][1]
 		iFlags = ranges[i][2]
 		#compare the ranges[i] to all elements in ranges
+
 		for j in range(len(ranges)):
 			#skip self
 			if(i == j):
@@ -99,6 +105,8 @@ def SingleStepSolver(playerBoard):
 				if isTouching(space[0], space[1], iPosition[0], iPosition[1]):
 					shared+=1
 					notSharedRange.remove(space)
+			if not (space in totalOptions):
+				totalOptions.append(space)
 
 			#the minimum number of mines that ranges[i] and ranges[j] share = NumSharedAdjacentPositions - NumPossibleJMinePositions + NumMinesUnrevieled 
 			mineCount = shared - len(jOptions) + minesLeft(jPosition[0], jPosition[1], playerBoard, jFlags)
@@ -106,7 +114,7 @@ def SingleStepSolver(playerBoard):
 			#if we know the ranges where all adjacent remaining mines are, reveal an adjacent tile
 			if(mineCount == minesLeft(iPosition[0], iPosition[1], playerBoard, iFlags)):
 				for space in notSharedRange:
-					playerBoard.activate(space[0], space[1], userClicked=True)
+					playerBoard.activate(space[0], space[1])
 					return
 
 			#if we know the minimum number of mines is in an overlap and that 
@@ -115,4 +123,19 @@ def SingleStepSolver(playerBoard):
 				if(mineCount == minesLeft(iPosition[0], iPosition[1], playerBoard, iFlags) - len(notSharedRange) and mineCount>0):
 					for space in notSharedRange:
 						playerBoard.setMarking(space[0], space[1], 2)
+						return
+
+	#if the regular solver found nothing useful, check whether there are fewer bombs left than the number bomb options
+	if playerBoard.flagCounter.value < len(totalOptions):
+
+		#if so, anything not in a range must be safe!
+		for y in range(0, rows):
+			for x in range(0, cols):
+				if playerBoard.grid[y][x].value == -1:
+					inRange = False
+					for i in range(len(ranges)):
+						if [x, y] in ranges[i][1]:
+								inRange = True
+					if not inRange:
+						playerBoard.activate(x, y)
 						return

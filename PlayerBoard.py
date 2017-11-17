@@ -29,7 +29,7 @@ class PlayerBoard(object):
 				self.grid[y].append(Tile(x, y, self.flagCounter))
 		
 	''' called when a tile is overturned, either by clicking, a hint, or by the recursive unfolding of tiles which touch no bombs '''
-	def activate(self, x, y, userClicked=False):
+	def activate(self, x, y):
 
 		''' ensure the tile is one which may be pressed '''
 		if self.grid[y][x].value >= 0:
@@ -42,10 +42,9 @@ class PlayerBoard(object):
 		self.boardCounter+=1
 
 		''' if this function was called directly, not recursively, check win/loss conditions '''
-		if userClicked:
-			self.checkwin()
-			if self.grid[y][x].value==9:
-				self.loseGame(x, y)
+		self.checkwin()
+		if self.grid[y][x].value==9:
+			self.loseGame(x, y)
 
 		''' if this reveals a tile touching no bombs, recursively unfold the surrounding tiles '''
 		if self.grid[y][x].value == 0:
@@ -95,7 +94,7 @@ class PlayerBoard(object):
 			return
 
 		if button == mouse.LEFT:
-			self.activate(gridX, gridY, userClicked=True)
+			self.activate(gridX, gridY)
 
 		elif button == mouse.RIGHT and self.grid[gridY][gridX].value < 0:
 			self.grid[gridY][gridX].rotateMarking()
